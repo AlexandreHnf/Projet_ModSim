@@ -1,8 +1,20 @@
+% === (0, 3)
+%A = [3 0;0 0];
+%A = [3 0;0 3];
+%A = [3 0;0 -3];
+A = [0 3;0 0];
+
+% === (1, -1)
+%A = [1 -1;0 0];
+%A = [1 -1;-1 1];
+%A = [1 -1;1 -1];
+%A = [0 1;-1 0];
+
+% === (
 %A = [-5 -3; 1 -1];
 %A = [1 3; 3 1];
 %A = [1 1; 1 1];
-A = [1 3; 0 0];
-
+%A = [1 3; 0 0];
 function [t,x] = system_simulation(A, init)
     ode_sys = @(t,x) [A(1,1)*x(1)+A(1,2)*x(2);A(2,1)*x(1)+A(2,2)*x(2)]; # Définition système
     %[t,x] = ode23 (ode_sys, [0, 10], [2, 0]); # Résolution système
@@ -11,8 +23,13 @@ endfunction
 
 %[t,x] = system_simulation(A);
 [t,x] = system_simulation(A, [2, 0]);
-figure(1)
-plot(t,x)
+%[t,x] = system_simulation(A, [-5, -2]);
+%[t,x] = system_simulation(A, [2, 0]);
+%[t,x] = system_simulation(A, [2, 0]);
+%[t,x] = system_simulation(A, [2, 0]);
+
+%figure(1)
+%plot(t,x)
 
 # 2. Dessiner les droites correspondants aux vecteurs propres et le sense des trajectoires associés
 function [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range)
@@ -21,36 +38,11 @@ function [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range)
     eigenline_2 = (V(2,2)/V(1,2)) * line_range;
 endfunction
 
-%function [line_range,eigenline_1,eigenline_2] = plot_eigenlines(A)
-%    line_range = -1.5:.1:1.5;
-%    [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range);
-%    figure(2)
-%    hold on;
-%    plot(line_range,eigenline_1,"linewidth",10);
-%    plot(line_range,eigenline_2,"linewidth",10);
-%    quiver([0;0],[0;0],V(1,:),V(2,:),"linewidth",10,"color","k");
-%    legend("v_1","v_2","location","south");
-%endfunction
-
-%[line_range,eigenline_1,eigenline_2] = plot_eigenlines(A);
-
 # 3. Calculer les isoclines
 function [isocline_1,isocline_2] = compute_isoclines(A,line_range)
     isocline_1 = -(A(1,1)/A(1,2)) * line_range;
     isocline_2 = -(A(2,1)/A(2,2)) * line_range;
 endfunction
-
-%function [line_range,isocline_1,isocline_2] = plot_isoclines(A)
-%    line_range = -1.5:.1:1.5;
-%    [isocline_1,isocline_2] = compute_isoclines(A,line_range);
-%    figure(2)
-%    hold on;
-%    plot(line_range,isocline_1,"linewidth",5);
-%    plot(line_range,isocline_2,"linewidth",5);
-%    legend("isocline_1","isocline_2","location","south");
-%endfunction
-
-%[line_range,isocline_1,isocline_2] = plot_isoclines(A);
 
 # 4. Portrait de phase complet
 function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
@@ -58,7 +50,6 @@ function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
     x1range=-1.5:.1:1.5;
     x2range=-1.5:.1:1.5;
     [x1,x2] = meshgrid(x1range, x2range);
-
 
     # Define the system to plot (based on matrix A)
     x1p = A(1,1)*x1+A(1,2)*x2;
@@ -86,3 +77,27 @@ function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
 endfunction
 
 [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A);
+%A = [3 0;0 0];
+%A = [3 0;0 3];
+%A = [3 0;0 -3];
+%A = [0 3;0 0];
+
+figure(3)
+x = -10:0.1:10;
+plot (x, 1/4*x.^2);
+hold on;
+%A_vec = [[-2 1; 1 -2];[2 1; 2 3];[5 9; 6 2];[0 1; 0 1];[0 -1; 1 0];[1/3 -2; 3 -1]]; #cbind like
+A_vec = [[3 0;0 0];[3 0;0 3];[3 0;0 -3];[0 3;0 0]];
+i = 0;
+while i<(rows(A_vec)/2)# Column-wise iteration
+    A = A_vec(2*i+1:2*(i+1),1:2); # Get the proper submatrix
+    plot(trace(A),det(A),sprintf(";[%d %d];o",trace(A),det(A)))
+    i++;
+endwhile
+set(gca, "xaxislocation", "origin");
+set(gca, "yaxislocation", "origin");
+h = legend; legend(h,"location","southwest");
+xlabel("tr(A)");
+ylabel("det(A)");
+box off;
+hold off;
