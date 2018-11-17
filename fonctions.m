@@ -1,9 +1,10 @@
+A = [-5 -3; 1 -1];
+
 function [t,x] = system_simulation(A)
     ode_sys = @(t,x) [A(1,1)*x(1)+A(1,2)*x(2);A(2,1)*x(1)+A(2,2)*x(2)]; # Définition système
     [t,x] = ode23 (ode_sys, [0, 10], [2, 0]); # Résolution système
 endfunction
 
-A = [-5 -3; 1 -1];
 [t,x] = system_simulation(A);
 plot(t,x)
 
@@ -49,6 +50,7 @@ function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
     x1range=-1.5:.1:1.5;
     x2range=-1.5:.1:1.5;
     [x1,x2] = meshgrid(x1range, x2range);
+
 
     # Define the system to plot (based on matrix A)
     x1p = A(1,1)*x1+A(1,2)*x2;
