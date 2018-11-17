@@ -1,14 +1,16 @@
 %A = [-5 -3; 1 -1];
-A = [1 3; 3 1];
+%A = [1 3; 3 1];
 %A = [1 1; 1 1];
-%A = [1 3; 0 0];
+A = [1 3; 0 0];
 
-function [t,x] = system_simulation(A)
+function [t,x] = system_simulation(A, init)
     ode_sys = @(t,x) [A(1,1)*x(1)+A(1,2)*x(2);A(2,1)*x(1)+A(2,2)*x(2)]; # Définition système
-    [t,x] = ode23 (ode_sys, [0, 10], [2, 0]); # Résolution système
+    %[t,x] = ode23 (ode_sys, [0, 10], [2, 0]); # Résolution système
+    [t,x] = ode23 (ode_sys, [0, 10], init); # Résolution système
 endfunction
 
-[t,x] = system_simulation(A);
+%[t,x] = system_simulation(A);
+[t,x] = system_simulation(A, [2, 0]);
 figure(1)
 plot(t,x)
 
