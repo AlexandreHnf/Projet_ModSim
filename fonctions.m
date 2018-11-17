@@ -6,6 +6,7 @@ function [t,x] = system_simulation(A)
 endfunction
 
 [t,x] = system_simulation(A);
+figure(1)
 plot(t,x)
 
 # 2. Dessiner les droites correspondants aux vecteurs propres et le sense des trajectoires associés
@@ -18,6 +19,7 @@ endfunction
 function [line_range,eigenline_1,eigenline_2] = plot_eigenlines(A)
     line_range = -1.5:.1:1.5;
     [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range);
+    figure(2)
     hold on;
     plot(line_range,eigenline_1,"linewidth",10);
     plot(line_range,eigenline_2,"linewidth",10);
@@ -36,6 +38,7 @@ endfunction
 function [line_range,isocline_1,isocline_2] = plot_isoclines(A)
     line_range = -1.5:.1:1.5;
     [isocline_1,isocline_2] = compute_isoclines(A,line_range);
+    figure(2)
     hold on;
     plot(line_range,isocline_1,"linewidth",5);
     plot(line_range,isocline_2,"linewidth",5);
@@ -59,6 +62,7 @@ function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
     #Normalize values for plotting
     norms=sqrt(x1p.^2+x2p.^2);
     
+    figure(2)
     [eigenline_1,eigenline_2,V] = compute_eigenlines(A,x1range);
     [isocline_1,isocline_2] = compute_isoclines(A,x1range);
     
