@@ -1,4 +1,7 @@
-A = [-5 -3; 1 -1];
+%A = [-5 -3; 1 -1];
+A = [1 3; 3 1];
+%A = [1 1; 1 1];
+%A = [1 3; 0 0];
 
 function [t,x] = system_simulation(A)
     ode_sys = @(t,x) [A(1,1)*x(1)+A(1,2)*x(2);A(2,1)*x(1)+A(2,2)*x(2)]; # Définition système
@@ -16,18 +19,18 @@ function [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range)
     eigenline_2 = (V(2,2)/V(1,2)) * line_range;
 endfunction
 
-function [line_range,eigenline_1,eigenline_2] = plot_eigenlines(A)
-    line_range = -1.5:.1:1.5;
-    [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range);
-    figure(2)
-    hold on;
-    plot(line_range,eigenline_1,"linewidth",10);
-    plot(line_range,eigenline_2,"linewidth",10);
-    quiver([0;0],[0;0],V(1,:),V(2,:),"linewidth",10,"color","k");
-    legend("v_1","v_2","location","south");
-endfunction
+%function [line_range,eigenline_1,eigenline_2] = plot_eigenlines(A)
+%    line_range = -1.5:.1:1.5;
+%    [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range);
+%    figure(2)
+%    hold on;
+%    plot(line_range,eigenline_1,"linewidth",10);
+%    plot(line_range,eigenline_2,"linewidth",10);
+%    quiver([0;0],[0;0],V(1,:),V(2,:),"linewidth",10,"color","k");
+%    legend("v_1","v_2","location","south");
+%endfunction
 
-[line_range,eigenline_1,eigenline_2] = plot_eigenlines(A);
+%[line_range,eigenline_1,eigenline_2] = plot_eigenlines(A);
 
 # 3. Calculer les isoclines
 function [isocline_1,isocline_2] = compute_isoclines(A,line_range)
@@ -35,17 +38,17 @@ function [isocline_1,isocline_2] = compute_isoclines(A,line_range)
     isocline_2 = -(A(2,1)/A(2,2)) * line_range;
 endfunction
 
-function [line_range,isocline_1,isocline_2] = plot_isoclines(A)
-    line_range = -1.5:.1:1.5;
-    [isocline_1,isocline_2] = compute_isoclines(A,line_range);
-    figure(2)
-    hold on;
-    plot(line_range,isocline_1,"linewidth",5);
-    plot(line_range,isocline_2,"linewidth",5);
-    legend("isocline_1","isocline_2","location","south");
-endfunction
+%function [line_range,isocline_1,isocline_2] = plot_isoclines(A)
+%    line_range = -1.5:.1:1.5;
+%    [isocline_1,isocline_2] = compute_isoclines(A,line_range);
+%    figure(2)
+%    hold on;
+%    plot(line_range,isocline_1,"linewidth",5);
+%    plot(line_range,isocline_2,"linewidth",5);
+%    legend("isocline_1","isocline_2","location","south");
+%endfunction
 
-[line_range,isocline_1,isocline_2] = plot_isoclines(A);
+%[line_range,isocline_1,isocline_2] = plot_isoclines(A);
 
 # 4. Portrait de phase complet
 function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
@@ -75,6 +78,7 @@ function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
     # Vecteurs propres
     plot(x1range,eigenline_1,"linewidth",5);
     plot(x1range,eigenline_2,"linewidth",5);
+    quiver([0;0],[0;0],V(1,:),V(2,:),"linewidth",10,"color","k");
     legend("field","v_1","v_2","isocline_1","isocline_2","location","south","orientation", "horizontal");
     
 endfunction
