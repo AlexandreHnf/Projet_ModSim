@@ -25,8 +25,10 @@
 % === (2, 2)                         mat 5
 %A = [2 2; 0 0];
 %A = [2 2; 2 2];
-A = [2 2; -2 -2];
+%A = [2 2; -2 -2];
 %A = [0 2; 2 0];
+
+%A=[5/2 3/2;3/2 5/2];
 
 function [t,x] = system_simulation(A, init)
     ode_sys = @(t,x) [A(1,1)*x(1)+A(1,2)*x(2);A(2,1)*x(1)+A(2,2)*x(2)]; # Définition système
