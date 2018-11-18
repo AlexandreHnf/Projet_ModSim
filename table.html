@@ -1,0 +1,318 @@
+<style type="text/css">
+table  {border-collapse:collapse;border-spacing:0; color: rgba(0, 0, 0, 0.8)}
+table td{font-family:Arial, sans-serif;font-size:14px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+table th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;background-color:#26ADE4;}
+table .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+td {text-align:left;vertical-align:top}
+tr td {padding-top: 5px; padding-bottom:5px}
+.rainbow {
+    background: linear-gradient(to right, red, orange , green, cyan, blue, violet, magenta);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+span{
+    display: inline-block;
+    margin: 0;
+    width: 100%;
+    height:20px;
+    padding: 1px;
+}
+
+span.vp {
+  background-color: white;
+}
+span.sys {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+span.pe {
+  background-color: white;
+}
+span.stab {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+span.type {
+  background-color: white;
+}
+/* 
+
+Det(A) = 0 => système non-simple => plusieurs points d'équilibre
+Det(A) != 0 => Système simple => point d'équilibre = (0,0)
+
+=======================================================================
+
+FAUT: noeud instable     OK
+        noeud stable
+        selle OK
+        centre OK
+        foyer stable/instable
+        foyer instable
+        noeud singulier OK
+        noeud dégénéré stable/instable
+
+===========================================================================
+
+Stabilité asymptotique - Th 5.3¶
+Un système  𝐗˙(𝑡)=𝐀𝐗(𝑡)  est asymptotiquement stable si la partie réelle de tous les valeurs propres de A est negative.
+
+Stabilité simple - Th 5.4
+Un système  𝐗˙(𝑡)=𝐀𝐗(𝑡)  est (simplement) stable si la partie réelle de tous les valeurs propres de A est negative ou nulle 
+et celles ayant partie negative nulle ont une multiplicité égale à 1.
+
+Instabilité - Th 5.5
+Un système  𝐗˙(𝑡)=𝐀𝐗(𝑡)  est instable si la partie réelle de tous les valeurs propres de A est positive ou nulle et 
+celles ayant partie negative nulle ont une multiplicité supérieure à 1.
+
+===================================================================================
+Stabilité - Racines réelles et distinctes -  𝜆1,𝜆2 ¶
+Noeud stable
+Si valeurs propres de  𝐀  sont réelles et négatives.
+
+Noeud instable
+Si valeurs propres de  𝐀  sont réelles et positive.
+
+Selle
+Si valeurs propres de  𝐀  sont réelles et ayant signe discorde.
+
+
+Système non simple
+
+Considérons le cas où $\det(A) = \lambda_1\lambda_2 = 0$ et la valeur propre $\lambda_2 \neq 0$.
+
+Tous les états qui appartiennent à la droite $a_{11}x_1 + a_{12}x_2 = 0$ sont des états d’équilibre. 
+Aussi, toutes les trajectoires sont des droites parallèles à la droite $v_2$.
+
+Deux configurations sont possibles:
+
+    - $0 = \lambda_1 &gt; \lambda_2$ : ceci implique que tous les états d’équilibre sont stables.
+    - $ 0 = \lambda_1 &lt; \lambda_2$: ceci implique que tous les états d’équilibre sont instables.
+
+
+
+Stabilité - Racines complexes et conjuguées -  𝜆1,2=𝛼±𝑖𝛽 
+Centre
+a = 0 : Les trajectoires sont des ellipses fermées avec période  𝑇=2𝜋𝑏 . L’origine est dit un centre.
+
+Foyer stable
+a < 0 : Le système est asymptotiquement stable et les trajectoires convergent vers l’origine en suivant des spirales.
+
+Foyer instable
+a > 0 : Le système est instable et les trajectoires s’éloignent de l’origine en suivant des spirales.
+
+======================================
+*/
+</style>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<table>
+    <tr>
+        <th class="tg-c3ow">(a, b)</th>
+        <th class="tg-c3ow">Cas 1.</th>
+        <th class="tg-c3ow">Cas 2.</th>
+        <th class="tg-c3ow">Cas 3.</th>
+        <th class="tg-c3ow">Cas 4.</th>
+    </tr>  
+
+    <tr> 
+        <!-- [[3 0;0 0];[3 0;0 3];[3 0;0 -3];[0 3;0 0]]] -->
+        <td style="vertical-align: middle;">(3, 0)</td> 
+        <td> 
+            <!-- ok -->
+            <span class="vp">0, 3</span><br>
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">infinité</span><br>
+            <span class="stab">instable</span>
+            <span class="type">Système non simple instable</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">3, 3</span><br>
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">instable asymptotiquement</span><br>
+            <span class="type">Noeud singulier</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">-3, 3</span><br>
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">?</span><br>
+            <span class="type">Selle</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">0, 0</span><br>
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">infinité</span><br>
+            <span class="stab">instable</span>
+            <span class="type">-</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="vertical-align: middle;"> (1, -1)</td>
+        <!-- [[1 -1; 0 0];[1 -1; -1 1];[1 -1; 1 -1];[0 1;-1 0]]; -->
+        <td>
+            <!-- ok -->
+            <span class="vp">1, 0</span><br>
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">instable</span><br>
+            <span class="type">Système non simple instable</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">0, 2</span><br>
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">instable</span><br>
+            <span class="type">Système non simple instable</span>
+        </td>
+        <td>
+            <!-- pas un foyer dans plot => bizarre -->
+            <span class="vp">3.3e-17 + 1.6e-16i, 3.3e-17 - 1.6e-16i</span><br>
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">instable</span><br>
+            <span class="type">Foyer instable</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">0 + 1i, 0 - 1i</span><br>
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">instable</span><br>
+            <span class="type">Centre</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="vertical-align: middle;">(-1, 0)</td>
+        <!-- [[-1 0; 0 0];[-1 0; 0 -1];[-1 0; 0 1];[0 -1; 0 0]] -->
+        <td>
+            <!-- ok -->
+            <span class="vp">-1, 0</span><br>  <!-- det = 0-->
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">stable</span><br> 
+            <span class="type">Système non simple stable</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">-1, -1</span><br> <!-- det = 1 -->
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">stable asymptotiquement</span><br> 
+            <span class="type">Noeud singulier</span> 
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">-1, 1</span><br>  <!-- det = -1 -->
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">instable</span><br> 
+            <span class="type">selle</span> 
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">0, 0</span><br> <!-- det = 0-->
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">instable</span><br> 
+            <span class="type">Système non simple instable</span> <!-- TODO -->
+        </td>
+    </tr>
+
+    <tr>
+        <td style="vertical-align: middle;">(-1, -2)</td>
+        <!-- [[-1 -2; 0 0];[-1 -2; -2 -1];[-1 -2; 2 1];[0 -1; -2 0]] -->
+        <td>
+            <!-- ok -->
+            <span class="vp">-1, 0</span><br>  <!-- det = 0-->
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">instable</span><br> 
+            <span class="type">Système non simple instable</span> 
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">-3, 1</span><br> <!-- det = -3 -->
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">instable</span><br>
+            <span class="type">Selle</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">0 + 1.7321i, 0 - 1.7321i</span><br>  <!-- det = 3 -->
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">instable</span><br>
+            <span class="type">Centre</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">1.4142, -1.4142</span><br> <!-- det = -2-->
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">instable</span><br> 
+            <span class="type">Selle</span> 
+        </td>
+    </tr>
+
+    <tr>
+        <td style="vertical-align: middle;">(2, 2)</td>
+        <!-- [[2 2; 0 0];[2 2; 2 2];[2 2; -2 -2];[0 2; 2 0]] -->
+        <td>
+            <!-- ok -->
+            <span class="vp">2, 0</span><br>  <!-- det = 0-->
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">instable</span><br> 
+            <span class="type">Système non simple instable</span> 
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">0, 4</span><br> <!-- det = 0 -->
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">instable</span><br> 
+            <span class="type">Système non simple instable</span>
+        </td>
+        <td>
+            <!-- bizarre car le plot montre pas un foyer stable -->
+            <span class="vp">-6.5e-17 + 3.14e-16i, -6.5e-17 - 3.14e-16i</span><br>  <!-- det = 0 -->
+            <span class="sys">Système non-simple</span><br>
+            <span class="pe">plusieurs</span><br>
+            <span class="stab">stable asymptotiquement</span><br> 
+            <span class="type">Foyer stable</span>
+        </td>
+        <td>
+            <!-- ok -->
+            <span class="vp">-2, 2</span><br> <!-- det = -4-->
+            <span class="sys">Système simple</span><br>
+            <span class="pe">(0, 0)</span><br>
+            <span class="stab">instable</span><br> 
+            <span class="type">Selle</span>
+        </td>
+    </tr>
+
+</table>
+
+
+<script>
+    $(".vp").prepend("Valeurs propres : ");
+    $(".stab").prepend("Stabilité : ");
+    $(".pe").prepend("Point d'équilibre : ");
+
+    $( "span:contains('Système simple')" ).css( "color", "green" );
+    $( "span:contains('Système non-simple'):not(:contains('stable'))" ).css( "color", "red" );
+
+    $( "span:contains('infinité')" ).addClass( "rainbow");
+    $( "span:contains('plusieurs')" ).css( "color", "blue" );
+    $( "span:contains('(0, 0)')" ).css( "color", "violet" );
+
+    $( "span.stab:contains('stable'):not(:contains('instable'))" ).css( "color", "orange" );
+    $( "span.stab:contains('instable')" ).css( "color", "brown" );
+  //TODO : autres colors
+</script>
