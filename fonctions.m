@@ -28,7 +28,7 @@
 %A = [2 2; -2 -2];
 %A = [0 2; 2 0];
 
-A=[-1/2 1/2;1/2 -1/2];
+A=[1 1; 1 1];
 
 function [t,x] = system_simulation(A, init)
     ode_sys = @(t,x) [A(1,1)*x(1)+A(1,2)*x(2);A(2,1)*x(1)+A(2,2)*x(2)]; # Définition système
@@ -43,8 +43,8 @@ endfunction
 %[t,x] = system_simulation(A, [2, 0]);
 %[t,x] = system_simulation(A, [2, 0]);
 
-%figure(1)
-%plot(t,x)
+figure(1)
+plot(t,x)
 
 # 2. Dessiner les droites correspondants aux vecteurs propres et le sense des trajectoires associés
 function [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range)
@@ -91,24 +91,4 @@ function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
     
 endfunction
 
-[x1,x2,x1p,x2p] = plot_portrait_phase_complete(A);
-
-%figure(3)
-%x = -10:0.1:10;
-%plot (x, 1/4*x.^2);
-%hold on;
-%%A_vec = [[-2 1; 1 -2];[2 1; 2 3];[5 9; 6 2];[0 1; 0 1];[0 -1; 1 0];[1/3 -2; 3 -1]]; #cbind like
-%A_vec = [[3 0;0 0];[3 0;0 3];[3 0;0 -3];[0 3;0 0]];
-%i = 0;
-%while i<(rows(A_vec)/2)# Column-wise iteration
-%    A = A_vec(2*i+1:2*(i+1),1:2); # Get the proper submatrix
-%    plot(trace(A),det(A),sprintf(";[%d %d];o",trace(A),det(A)))
-%    i++;
-%endwhile
-%set(gca, "xaxislocation", "origin");
-%set(gca, "yaxislocation", "origin");
-%h = legend; legend(h,"location","southwest");
-%xlabel("tr(A)");
-%ylabel("det(A)");
-%box off;
-%hold off;
+%[x1,x2,x1p,x2p] = plot_portrait_phase_complete(A);
