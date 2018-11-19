@@ -28,7 +28,9 @@
 %A = [2 2; -2 -2];
 %A = [0 2; 2 0];
 
-A=[1 1; 1 1];
+%A=[-1 1; 0 0];
+%A= [0 1;1 0];
+A = [1 0;0 1];
 
 function [t,x] = system_simulation(A, init)
     ode_sys = @(t,x) [A(1,1)*x(1)+A(1,2)*x(2);A(2,1)*x(1)+A(2,2)*x(2)]; # Définition système
@@ -37,14 +39,14 @@ function [t,x] = system_simulation(A, init)
 endfunction
 
 %[t,x] = system_simulation(A);
-[t,x] = system_simulation(A, [2, 0]);
+[t,x] = system_simulation(A, [10, 10])
 %[t,x] = system_simulation(A, [-5, -2]);
 %[t,x] = system_simulation(A, [2, 0]);
 %[t,x] = system_simulation(A, [2, 0]);
 %[t,x] = system_simulation(A, [2, 0]);
 
-figure(1)
-plot(t,x)
+%figure(1)
+%plot(t,x)
 
 # 2. Dessiner les droites correspondants aux vecteurs propres et le sense des trajectoires associés
 function [eigenline_1,eigenline_2,V] = compute_eigenlines(A,line_range)
@@ -91,4 +93,4 @@ function [x1,x2,x1p,x2p] = plot_portrait_phase_complete(A)
     
 endfunction
 
-%[x1,x2,x1p,x2p] = plot_portrait_phase_complete(A);
+[x1,x2,x1p,x2p] = plot_portrait_phase_complete(A);
